@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ld.silentoncall">
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <permission-group android:name="android.permission-group.MICROPHONE"
+        android:label="label"
+         android:priority="360"/>
+
+    <permission android:name="android.permission.MICROPHONE"
+        android:permissionGroup="android.permission-group.MICROPHONE"
+        android:protectionLevel="dangerous"
+        android:label="label" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+
+        <receiver android:name=".BlueReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE"/>
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>
