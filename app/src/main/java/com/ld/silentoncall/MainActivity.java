@@ -1,7 +1,5 @@
 package com.ld.silentoncall;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -39,9 +37,10 @@ public class MainActivity  extends AppCompatActivity implements SensorEventListe
     static float proxValue = 8;
     // static boolean muteCall = false;
     private AudioManager amanager;
-    private AudioRecord ar = null;
+    private AudioRecord ar0 = null;
     private int minSize;
 
+    private AudioRecord ar ;
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
 
@@ -57,24 +56,33 @@ public class MainActivity  extends AppCompatActivity implements SensorEventListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (ContextCompat.checkSelfPermission(getApplicationContext(),
-                Manifest.permission_group.MICROPHONE)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.MICROPHONE) != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions((Activity) getApplicationContext(),
-                    new String[]{Manifest.permission_group.MICROPHONE},
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.MICROPHONE},
                     REQUEST_MICROPHONE);
 
         }
 
+        if (ar == null) {
+              Toast.makeText(getApplicationContext(), "Mic off", Toast.LENGTH_LONG).show();
 
+        }
 
-        sm = (SensorManager) getSystemService(SENSOR_SERVICE);
-        proxSensor = sm.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        if (ar != null) {
+            Toast.makeText(getApplicationContext(), "Mic ON", Toast.LENGTH_LONG).show();
 
-         sm.registerListener(this, proxSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+      }
+
+    private void onPlay(boolean start) {
+        if (start) {
+            Toast.makeText(getApplicationContext(), "Mic ON", Toast.LENGTH_LONG).show();
+
+        } else {
+         }
     }
-
     @Override
     protected void onResume() {
         super.onResume();
